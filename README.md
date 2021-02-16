@@ -2,7 +2,6 @@
 
 <p align="center">
 See trending stock tickers on Reddit and check Stock perfomance <br><br>
-<img style="padding:10px;" src="https://img.shields.io/badge/Open%20Source-💕%20-9cf?style=for-the-badge"><br>
 <img style="padding:10px;" src="https://img.shields.io/github/contributors/iam-abbas/Reddit-Stock-Trends?style=flat-square">
 <img style="padding:10px;" src="https://img.shields.io/github/stars/iam-abbas/Reddit-Stock-Trends?style=flat-square">
 <img style="padding:10px;" src="https://img.shields.io/github/forks/iam-abbas/Reddit-Stock-Trends?label=Forks&style=flat-square">
@@ -11,13 +10,11 @@ See trending stock tickers on Reddit and check Stock perfomance <br><br>
 
 </p>
 
-## Usage
+## Backend
 
-#### Reddit API
-- Get your reddit API credentials from [here](https://www.reddit.com/prefs/apps)
+### Reddit API
+- Get your reddit API credentials from [here](https://www.reddit.com/prefs/apps).
 - Follow [this](https://towardsdatascience.com/scraping-reddit-with-praw-76efc1d1e1d9) article to get your credentials.
-
-#### Running Scripts
 - Go to `back/` directory.
 - Create a `praw.ini` file with the following
 ```
@@ -27,19 +24,24 @@ client_secret=<your client secret>
 user_agent=<your user agent>
 ```
 Note that the title of this section, `ClientSecrets`, is important because `ticker_counts.py` will specifically look for that title in the `praw.ini` file.
-- Install required modules using `pip install -r requirements.txt`
-- Run `ticker_counts.py` first
-- Now run `yfinance_analysis.py`
-- currently the default number of tickers analyzed is 25 but yfiinance does accept a number as an arguement if you want more or less tickers
--- eg/ "python yfinance_analysis.py 20" would get you only 20 tickers analyzed
+
+### Local usage
+- Install required modules using `pip install -r requirements.txt`.
+- Run `ticker_counts.py` first.
+- Now run `yfinance_analysis.py`.
 - You will be able to find your results in `data/` directory.
+- [Optional] Run `wsgi.py` to start a server that returns the data in JSON format. This step will generate the csv files if they don't already exist.
+
+### Docker usage
+- Requires Docker 17.09.0+ and docker-compose 1.17.0+
+- Run `docker-compose up backend` to generate csv files and start the backend sever.
 
 ---
-## Web app
-There's also a JavaScript web app that shows some data visualizations if you don't want to read the csv files.
+## Frontend
+There's also a JavaScript web app that shows some data visualizations.
 
-### Usage
-Once you finished running the scripts, you'll have to set up the local server
+### Local usage
+Start the local server. This server will generate the csv files if they don't already exist.
 ```bash
 cd back
 python wsgi.py
@@ -54,6 +56,10 @@ npm run serve
 ```
 You can change the env variables if you need to
 
+### Docker usage
+- Requires Docker 17.09.0+ and docker-compose 1.17.0+
+- Run `docker-compose up frontend` and navigate to http://localhost:8080/. This requires the backend server to already be running. If the backend is not running, run ` docker-compose up` to start both services.
+
 ---
 #### Ticker Symbol API - EOD Historical Data
 Included for potential future use is a csv file that contains all the listed ticker symbols for stocks, ETFs, and
@@ -63,7 +69,7 @@ To retrieve a csv of all USA ticker symbols, use the following:
 
 https://eodhistoricaldata.com/api/exchange-symbol-list/US?api_token={YOUR_API_KEY}
 
-## Contribution 
+## Contribution
 I would love to see more work done on this, I think this could be something very useful at some point. All contributions are welcome. Go ahead and open a PR.
 - Join the [Discord](https://discord.gg/USsBfc97RM) to discuss development and suggestions.
 
